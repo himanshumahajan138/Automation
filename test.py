@@ -90,12 +90,16 @@ def attempt_login(driver, email, password):
 def main():
     while True:  # Loop to restart the script in case of 403 error
         try:
-            # Set up Edge options to mimic a real user
+            # Set up Edge options to mimic a real user and run in headless mode
             edge_options = Options()
             edge_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36")
+            edge_options.add_argument("--headless")  # Enable headless mode
+            edge_options.add_argument("--disable-extensions")
+            edge_options.add_argument("--disable-autofill-keyboard-accessory-view")
+            edge_options.add_argument("--window-size=1920,1080")  # Set screen size in headless mode
             
-            # Initialize the Edge WebDriver
-            driver = webdriver.Edge( options=edge_options)
+            # Initialize the Edge WebDriver with headless options
+            driver = webdriver.Edge(options=edge_options)
 
             # Load the last attempted password
             last_attempted_password = load_last_attempted_password()
